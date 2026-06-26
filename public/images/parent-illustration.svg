@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+    <rect width="400" height="300" fill="transparent"/>
+    <circle cx="200" cy="150" r="100" fill="#EEF2FF"/>
+    <path d="M200 80C172.386 80 150 102.386 150 130C150 157.614 172.386 180 200 180C227.614 180 250 157.614 250 130C250 102.386 227.614 80 200 80Z" fill="#6366F1"/>
+    <path d="M120 250C120 205.817 155.817 170 200 170C244.183 170 280 205.817 280 250" stroke="#4F46E5" stroke-width="20" stroke-linecap="round"/>
+    <circle cx="280" cy="180" r="40" fill="#C7D2FE"/>
+    <path d="M280 140C263.431 140 250 153.431 250 170C250 186.569 263.431 200 280 200C296.569 200 310 186.569 310 170C310 153.431 296.569 140 280 140Z" fill="#818CF8"/>
+    <path d="M120 180C120 157.909 137.909 140 160 140C182.091 140 200 157.909 200 180" stroke="#A5B4FC" stroke-width="10" stroke-linecap="round"/>
+    <text x="50%" y="280" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#6366F1">Parent Portal</text>
+</svg>
