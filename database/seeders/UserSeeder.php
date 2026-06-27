@@ -28,28 +28,5 @@ class UserSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
         ]);
 
-        // 2. AKUN WALI KELAS (Otomatis Disetujui & Diverifikasi untuk Testing)
-        User::create([
-            'username' => 'walikelas_xa',
-            'name' => 'Wali Kelas X-A',
-            'email' => 'walikelas@sekolah.com',
-            'password' => Hash::make('password'),
-            'role' => 'wali_kelas',
-            // ✅ Status Wajib
-            'is_approved' => true, 
-            'email_verified_at' => Carbon::now(),
-        ]);
-        
-        // 3. AKUN ORANG TUA (Otomatis Disetujui & Diverifikasi untuk Testing)
-        User::create([
-            'username' => 'ortu_budi',
-            'name' => 'Bapak Budi Santoso',
-            'email' => 'ortu@sekolah.com',
-            'password' => Hash::make('password'),
-            'role' => 'orang_tua',
-            // ✅ Status Wajib
-            'is_approved' => true, 
-            'email_verified_at' => Carbon::now(),
-        ]);
     }
 }

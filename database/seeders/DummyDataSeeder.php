@@ -69,8 +69,10 @@ class DummyDataSeeder extends Seeder
         // Simpan User Wali Kelas
         foreach ($classes as $index => $class) {
             $name = $faker->name('male');
+            $nip = $faker->unique()->numerify('198#########'); // Format NIP 13 digit
+            
             $user = User::create([
-                'username' => 'wk' . ($index + 1),
+                'username' => $nip, // 💡 Wali Kelas memakai NIP sebagai Username
                 'name' => $name,
                 'email' => 'wk' . ($index + 1) . '@test.com',
                 'password' => Hash::make('password'),
@@ -82,7 +84,7 @@ class DummyDataSeeder extends Seeder
             
             // Hubungkan User ke HomeroomTeacher & Kelas (Karena ID Kelas valid, ini aman)
             HomeroomTeacher::create([
-                'nip' => $faker->unique()->randomNumber(9, true),
+                'nip' => $nip,
                 'user_username' => $user->username,
                 'class_code' => $class->code,
             ]);
