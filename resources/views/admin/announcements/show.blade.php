@@ -55,7 +55,7 @@
                             </span>
                         @else
                             <span class="px-3 py-1 bg-purple-50 text-purple-700 rounded-lg text-xs font-bold border border-purple-100">
-                                🏫 Kelas {{ $announcement->class->name ?? 'Unknown' }}
+                                🏫 Kelas {{ $announcement->class->code ?? 'Unknown' }}
                             </span>
                         @endif
                     </div>

@@ -157,7 +157,7 @@
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle mt-1 mr-2 text-indigo-400"></i>
-                                <span>Siswa otomatis masuk ke kelas Anda: <b>{{ $class->name ?? '...' }}</b></span>
+                                <span>Siswa otomatis masuk ke kelas Anda: <b>{{ $class->code ?? '...' }}</b></span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle mt-1 mr-2 text-indigo-400"></i>

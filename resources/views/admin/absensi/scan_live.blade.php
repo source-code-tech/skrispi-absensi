@@ -163,7 +163,7 @@
                                             </div>
                                             <div>
                                                 <p class="font-bold text-gray-800 group-hover:text-indigo-600 transition">{{ $absence->student->name ?? 'Siswa' }}</p>
-                                                <p class="text-xs text-gray-500">{{ $absence->student->class->name ?? 'Kelas' }}</p>
+                                                <p class="text-xs text-gray-500">{{ $absence->student->class->code ?? 'Kelas' }}</p>
                                             </div>
                                         </div>
                                         <div class="text-right">

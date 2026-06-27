@@ -52,7 +52,7 @@
                     <tr class="bg-gray-50/50 border-b border-gray-100 text-xs uppercase tracking-wider text-gray-500 font-semibold">
                         <th class="px-6 py-4 w-16 text-center">No</th>
                         <th class="px-6 py-4">Wali Kelas</th>
-                        <th class="px-6 py-4">Email (Login)</th>
+                        <th class="px-6 py-4">NIP (Login)</th>
                         <th class="px-6 py-4">Kelas Diampu</th>
                         <th class="px-6 py-4 text-center">Akses Instan (QR)</th> {{-- Judul Kolom Baru --}}
                         <th class="px-6 py-4 text-center w-36">Aksi</th>
@@ -78,16 +78,16 @@
                 </div>
             </td>
 
-            {{-- Email --}}
-            <td class="px-6 py-4 text-sm text-gray-600 whitespace-nowrap">
-                {{ $teacher->email }}
+            {{-- NIP --}}
+            <td class="px-6 py-4 text-sm text-gray-600 whitespace-nowrap font-semibold">
+                {{ $teacher->username }}
             </td>
 
             {{-- Kelas (Sudah diberi whitespace-nowrap agar badge tidak patah) --}}
             <td class="px-6 py-4 whitespace-nowrap">
                 @if($teacher->homeroomTeacher && $teacher->homeroomTeacher->class)
                     <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100 shadow-sm">
-                        {{ $teacher->homeroomTeacher->class->name }} 
+                        {{ $teacher->homeroomTeacher->class->code }} 
                     </span>
                 @else
                     <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full bg-gray-100 text-gray-500 border border-gray-200">

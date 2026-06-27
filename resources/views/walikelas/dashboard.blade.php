@@ -14,7 +14,7 @@
     @if($class)
     <div class="mt-4 sm:mt-0 flex items-center bg-white px-4 py-2 rounded-xl shadow-sm border border-gray-100">
         <div class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-        <span class="text-sm font-bold text-gray-700">Kelas {{ $class->grade }} {{ $class->name }}</span>
+        <span class="text-sm font-bold text-gray-700">Kelas {{ $class->grade }} {{ $class->code }}</span>
     </div>
     @endif
 </div>
@@ -47,7 +47,7 @@
             <div class="relative z-10 flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
                     <h2 class="text-3xl font-bold mb-2">Selamat Datang, {{ $user->name }}! 👋</h2>
-                    <p class="text-indigo-100 text-lg">Kelola absensi dan pantau aktivitas siswa <strong>Kelas {{ $class->name }}</strong> dengan mudah.</p>
+                    <p class="text-indigo-100 text-lg">Kelola absensi dan pantau aktivitas siswa <strong>Kelas {{ $class->code }}</strong> dengan mudah.</p>
                 </div>
                 <div class="flex space-x-3">
                     <a href="{{ route('walikelas.students.index') }}" class="px-6 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl font-bold hover:bg-white/30 transition">

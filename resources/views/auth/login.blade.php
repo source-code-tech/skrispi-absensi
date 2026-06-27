@@ -139,14 +139,14 @@
                     Login sebagai <span class="font-bold text-[var(--accent)]" id="role-helper-label">Admin</span>
                 </p>
 
-                {{-- Email --}}
+                {{-- Email / Username / NIP --}}
                 <div class="w-full">
-                    <label for="email" class="block text-xs font-bold text-[var(--ink)] mb-2">Alamat Email</label>
+                    <label for="login" class="block text-xs font-bold text-[var(--ink)] mb-2">Email / Username / NIP</label>
                     <div class="input-line rounded-md flex items-center px-4">
-                        <i class="fas fa-envelope text-[var(--muted)] text-sm mr-3"></i>
-                        <input id="email" name="email" type="email" autocomplete="email" required
+                        <i class="fas fa-user text-[var(--muted)] text-sm mr-3"></i>
+                        <input id="login" name="login" type="text" autocomplete="username" required
                             class="w-full bg-transparent py-3 text-sm text-[var(--ink)] placeholder-[var(--muted)]/60 focus:outline-none"
-                            placeholder="nama@email.com" value="{{ old('email') }}">
+                            placeholder="nama@email.com atau NIP" value="{{ old('login') }}">
                     </div>
                 </div>
 

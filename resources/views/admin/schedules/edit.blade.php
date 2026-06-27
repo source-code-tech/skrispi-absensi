@@ -8,7 +8,7 @@
         <h1 class="text-3xl font-extrabold text-gray-800 flex items-center">
             <i class="fas fa-edit text-amber-500 mr-3"></i> Edit Jadwal Pelajaran
         </h1>
-        <p class="text-sm text-gray-500 mt-1">Edit jadwal pelajaran kelas {{ $schedule->class->grade }} {{ $schedule->class->name }}.</p>
+        <p class="text-sm text-gray-500 mt-1">Edit jadwal pelajaran kelas {{ $schedule->class->grade }} {{ $schedule->class->code }}.</p>
     </div>
     <a href="{{ route('admin.schedules.show', $schedule->class_code) }}" class="text-sm font-bold text-gray-600 hover:text-indigo-600 transition">
         <i class="fas fa-arrow-left mr-1"></i> Kembali
@@ -51,7 +51,7 @@
                         {{-- Info Kelas (Readonly) --}}
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Kelas</label>
-                            <input type="text" value="{{ $schedule->class->grade }} {{ $schedule->class->name }}" disabled
+                            <input type="text" value="{{ $schedule->class->grade }} {{ $schedule->class->code }}" disabled
                                    class="bg-gray-100 block w-full sm:text-sm border-gray-300 rounded-xl py-3 text-gray-500">
                         </div>
 

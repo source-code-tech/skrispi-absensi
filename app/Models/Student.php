@@ -64,7 +64,7 @@ class Student extends Model
             ParentModel::class, 
             'parent_student', 
             'student_nisn', 
-            'parent_nik' 
+            'parent_id' 
         );
     }
 

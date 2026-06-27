@@ -1,6 +1,6 @@
 @extends('layouts.adminlte')
 
-@section('title', 'Edit Kelas: ' . $class->name)
+@section('title', 'Edit Kelas: ' . $class->code)
 
 @section('content_header')
 {{-- CUSTOM HEADER (Menggunakan Tailwind & Warna Indigo/Amber) --}}
@@ -10,7 +10,7 @@
     <h1 class="text-2xl font-bold text-gray-800 flex items-center mb-2 sm:mb-0">
         {{-- Menggunakan warna Amber untuk Edit --}}
         <i class="fas fa-edit text-amber-500 mr-2"></i> 
-        <span>Edit Kelas: {{ $class->name }}</span>
+        <span>Edit Kelas: {{ $class->code }}</span>
     </h1>
     
     {{-- Breadcrumb --}}
@@ -76,22 +76,22 @@
                             </div>
                         @endif
 
-                        {{-- 1. Nama Kelas --}}
+                        {{-- 1. Kode Kelas --}}
                         <div class="mb-5">
-                            <label for="name" class="block text-sm font-semibold text-gray-700 mb-1">Nama Kelas <span class="text-red-600">*</span></label>
-                            @php $nameStatusClass = $errors->has('name') ? $errorClass : $normalClass; @endphp
+                            <label for="code" class="block text-sm font-semibold text-gray-700 mb-1">Kode Kelas <span class="text-red-600">*</span></label>
+                            @php $codeStatusClass = $errors->has('code') ? $errorClass : $normalClass; @endphp
                             <input type="text"
-                                name="name"
-                                id="name"
-                                class="{{ $baseInputClass }} border {{ $nameStatusClass }}"
-                                value="{{ old('name', $class->name) }}"
-                                placeholder="Contoh: 1A, 2B, 6C"
+                                name="code"
+                                id="code"
+                                class="{{ $baseInputClass }} border {{ $codeStatusClass }}"
+                                value="{{ old('code', $class->code) }}"
+                                placeholder="Contoh: X-RPL-1, 7A, dll"
                                 required
                                 autofocus>
-                            @error('name')
+                            @error('code')
                                 <p class="mt-2 text-sm text-red-600 flex items-center"><i class="fas fa-exclamation-circle mr-1"></i> {{ $message }}</p>
                             @enderror
-                            <small class="mt-1 text-xs text-gray-500 block">Nama Kelas harus unik.</small>
+                            <small class="mt-1 text-xs text-gray-500 block">Kode Kelas harus unik.</small>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -213,7 +213,7 @@
                                     class="inline-flex items-center px-4 py-2.5 border border-transparent text-base font-bold rounded-lg shadow-md 
                                             text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-red-500/50 
                                             transition duration-150 transform hover:scale-[1.05]"
-                                    onclick="confirmDelete({{ $class->code }}, '{{ $class->name }}')">
+                                    onclick="confirmDelete({{ $class->code }}, '{{ $class->code }}')">
                                 <i class="fas fa-trash mr-1"></i> Hapus Kelas
                             </button>
                         </div>
@@ -276,7 +276,7 @@
                     <div class="mt-3">
                         <small class="text-xs text-gray-500 font-semibold uppercase tracking-wider block mb-2">Detail Saat Ini:</small>
                         <div class="border rounded-lg p-4 bg-gray-50 space-y-2">
-                            <div class="flex justify-between"><span>Nama:</span> <strong class="text-gray-800">{{ $class->name }}</strong></div>
+                            <div class="flex justify-between"><span>Nama:</span> <strong class="text-gray-800">{{ $class->code }}</strong></div>
                             <div class="flex justify-between"><span>Tingkat:</span> <strong class="text-gray-800">{{ $class->grade }}</strong></div>
                             <div class="flex justify-between"><span>Jurusan:</span> <strong class="text-gray-800">{{ $class->major ?? '-' }}</strong></div>
                             <div class="flex justify-between"><span>Jam Pulang Kelas:</span> <strong class="text-gray-800">{{ $class->dismissal_time ? \Carbon\Carbon::parse($class->dismissal_time)->format('H:i') : '-' }}</strong></div>
@@ -294,7 +294,7 @@
                     <div class="mt-4">
                         <small class="text-xs text-gray-500 font-semibold uppercase tracking-wider block mb-2">Preview Nama Kelas:</small>
                         <div class="border rounded-lg p-4 bg-gray-50">
-                            <code id="class-preview" class="text-sm font-mono text-gray-800">{{ $class->name }}</code>
+                            <code id="class-preview" class="text-sm font-mono text-gray-800">{{ $class->code }}</code>
                         </div>
                     </div>
                 </div>
@@ -349,7 +349,7 @@
             $('#class-preview').text(previewText);
 
             // Jika ada perubahan di input utama, beri warna text warning (amber)
-            if (nameInput !== '{{ $class->name }}' || grade !== '{{ $class->grade }}' || major !== '{{ $class->major ?? '' }}') {
+            if (nameInput !== '{{ $class->code }}' || grade !== '{{ $class->grade }}' || major !== '{{ $class->major ?? '' }}') {
                 $('#class-preview').addClass('text-red-500 font-bold').removeClass('text-gray-800');
             } else {
                 $('#class-preview').removeClass('text-red-500 font-bold').addClass('text-gray-800');

@@ -51,7 +51,7 @@
                                     <option value="">-- Pilih Siswa --</option>
                                     @foreach($parentRecord->students as $student)
                                         <option value="{{ $student->nisn }}" {{ old('student_nisn') == $student->nisn ? 'selected' : '' }}>
-                                            {{ $student->name }} ({{ $student->class->name ?? 'N/A' }})
+                                            {{ $student->name }} ({{ $student->class->code ?? 'N/A' }})
                                         </option>
                                     @endforeach
                                 </select>

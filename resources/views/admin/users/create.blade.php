@@ -65,6 +65,23 @@
 
                         <div class="grid grid-cols-1 gap-6">
                             
+                            {{-- NIP / Username --}}
+                            <div>
+                                <label for="username" class="{{ $labelClass }}">NIP / Username (Login) <span class="text-red-500">*</span></label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <i class="fas fa-id-card text-gray-400"></i>
+                                    </div>
+                                    <input type="text" name="username" id="username" 
+                                            class="pl-10 @error('username') {{ $inputErrorClass }} @else {{ $inputClass }} @enderror" 
+                                            value="{{ old('username') }}" 
+                                            placeholder="Masukkan NIP (Wali Kelas) atau Username (Ortu)"
+                                            required autofocus>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1 ml-1">Ini akan digunakan sebagai identitas login utama.</p>
+                                @error('username') <p class="mt-2 text-sm text-red-600 font-medium"><i class="fas fa-exclamation-circle mr-1"></i> {{ $message }}</p> @enderror
+                            </div>
+
                             {{-- Nama Lengkap --}}
                             <div>
                                 <label for="name" class="{{ $labelClass }}">Nama Lengkap <span class="text-red-500">*</span></label>
@@ -83,7 +100,7 @@
 
                             {{-- Email --}}
                             <div>
-                                <label for="email" class="{{ $labelClass }}">Email (Login) <span class="text-red-500">*</span></label>
+                                <label for="email" class="{{ $labelClass }}">Email Pribadi <span class="text-red-500">*</span></label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                         <i class="fas fa-envelope text-gray-400"></i>

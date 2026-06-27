@@ -137,7 +137,7 @@
                                 @forelse($parent->students as $student)
                                     <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">
                                         {{ $student->name }}
-                                        <span class="ml-1 text-blue-400 text-[10px]">({{ $student->class->name ?? '?' }})</span>
+                                        <span class="ml-1 text-blue-400 text-[10px]">({{ $student->class->code ?? '?' }})</span>
                                     </span>
                                 @empty
                                     <span class="text-xs text-gray-400 italic">Belum ada siswa ditautkan</span>
@@ -149,14 +149,14 @@
                         <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                             <div class="flex justify-center space-x-2">
                                 {{-- Edit --}}
-                                <a href="{{ route('parents.edit', $parent->nik) }}" 
+                                <a href="{{ route('parents.edit', $parent->id) }}" 
                                    class="text-amber-500 hover:text-white hover:bg-amber-500 p-2 rounded-lg transition-all duration-200 border border-amber-200 hover:border-amber-500 group-hover:shadow-sm" 
                                    title="Edit Data">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 {{-- Delete --}}
                                 <button type="button" 
-                                        onclick="confirmDelete({{ $parent->nik }}, '{{ $parent->name }}')"
+                                        onclick="confirmDelete({{ $parent->id }}, '{{ $parent->name }}')"
                                         class="text-red-500 hover:text-white hover:bg-red-500 p-2 rounded-lg transition-all duration-200 border border-red-200 hover:border-red-500 group-hover:shadow-sm"
                                         title="Hapus Akun">
                                     <i class="fas fa-trash-alt"></i>
@@ -164,7 +164,7 @@
                             </div>
 
                             {{-- Form Hapus --}}
-                            <form id="delete-form-{{ $parent->nik }}" action="{{ route('parents.destroy', $parent->nik) }}" method="POST" class="hidden">
+                            <form id="delete-form-{{ $parent->id }}" action="{{ route('parents.destroy', $parent->id) }}" method="POST" class="hidden">
                                 @csrf
                                 @method('DELETE')
                             </form>

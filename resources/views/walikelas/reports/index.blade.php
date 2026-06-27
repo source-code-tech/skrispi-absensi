@@ -9,7 +9,7 @@
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
         <div>
             <h2 class="text-2xl font-bold text-gray-800 tracking-tight">Laporan Absensi</h2>
-            <p class="text-sm text-gray-500 mt-1">Kelas: <span class="font-bold text-indigo-600">{{ $class->name }}</span> (Tingkat {{ $class->grade }})</p>
+            <p class="text-sm text-gray-500 mt-1">Kelas: <span class="font-bold text-indigo-600">{{ $class->code }}</span> (Tingkat {{ $class->grade }})</p>
         </div>
         <nav class="flex text-sm font-medium text-gray-500 space-x-2" aria-label="Breadcrumb">
             <a href="{{ route('walikelas.dashboard') }}" class="text-indigo-600 hover:text-indigo-800 transition">Dashboard</a>
@@ -34,7 +34,7 @@
                 <div>
                     <h4 class="font-bold text-indigo-900">Pilih Rentang Waktu</h4>
                     <p class="text-sm text-indigo-700 mt-1">
-                        Sistem akan menampilkan rekap kehadiran seluruh siswa di kelas <b>{{ $class->name }}</b> sesuai periode yang Anda tentukan.
+                        Sistem akan menampilkan rekap kehadiran seluruh siswa di kelas <b>{{ $class->code }}</b> sesuai periode yang Anda tentukan.
                     </p>
                 </div>
             </div>

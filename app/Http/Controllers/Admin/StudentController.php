@@ -30,7 +30,7 @@ class StudentController extends Controller
             $classId = $request->get('class_id');
 
             // Ambil semua kelas untuk filter dropdown
-            $classes = ClassModel::orderBy('grade')->orderBy('name')->get();
+            $classes = ClassModel::orderBy('grade')->orderBy('code')->get();
 
             $query = Student::with('class')
                             ->join('classes', 'students.class_code', '=', 'classes.code')
@@ -52,7 +52,7 @@ class StudentController extends Controller
 
             // 3. Logic Pengurutan Final
             $students = $query->orderBy('classes.grade', 'asc')
-                              ->orderBy('classes.name', 'asc')
+                              ->orderBy('classes.code', 'asc')
                               ->orderBy('students.name', 'asc')
                               ->paginate(15)
                               ->withQueryString();
@@ -295,7 +295,7 @@ class StudentController extends Controller
                         ->where('students.status', 'active')
                         ->join('classes', 'students.class_code', '=', 'classes.code')
                         ->orderBy('classes.grade', 'asc')
-                        ->orderBy('classes.name', 'asc')
+                        ->orderBy('classes.code', 'asc')
                         ->orderBy('students.name', 'asc')
                         ->select('students.*')
                         ->get();

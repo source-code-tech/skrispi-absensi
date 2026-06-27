@@ -65,6 +65,21 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             
+                            {{-- NIP / Username (Readonly) --}}
+                            <div class="md:col-span-2">
+                                <label for="username" class="{{ $labelClass }}">NIP / Username (Login)</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <i class="fas fa-id-card text-gray-400"></i>
+                                    </div>
+                                    <input type="text" id="username" 
+                                            class="pl-10 w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-100 text-gray-500 font-semibold cursor-not-allowed" 
+                                            value="{{ $user->username }}" 
+                                            readonly>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-1 ml-1"><i class="fas fa-info-circle mr-1"></i> ID Login tidak dapat diubah setelah dibuat.</p>
+                            </div>
+
                             {{-- Nama Lengkap --}}
                             <div class="md:col-span-2">
                                 <label for="name" class="{{ $labelClass }}">Nama Lengkap <span class="text-red-500">*</span></label>
@@ -82,7 +97,7 @@
 
                             {{-- Email --}}
                             <div class="md:col-span-2">
-                                <label for="email" class="{{ $labelClass }}">Email (Login) <span class="text-red-500">*</span></label>
+                                <label for="email" class="{{ $labelClass }}">Email Pribadi <span class="text-red-500">*</span></label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                         <i class="fas fa-envelope text-gray-400"></i>

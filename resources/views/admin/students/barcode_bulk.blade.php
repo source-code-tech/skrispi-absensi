@@ -90,7 +90,7 @@
                         <div class="data-row"><span class="label">NISN</span><span class="colon">:</span><span class="value">{{ $student->nisn }}</span></div>
                         <div class="data-row"><span class="label">TTL</span><span class="colon">:</span><span class="value">{{ $student->birth_place ? $student->birth_place.',' : '' }} {{ $student->birth_date ? $student->birth_date->format('d/m/y') : '-' }}</span></div>
                         <div class="data-row"><span class="label">JENIS KELAMIN</span><span class="colon">:</span><span class="value">{{ $student->gender == 'Laki-laki' ? 'LAKI-LAKI' : 'PEREMPUAN' }}</span></div>
-                        <div class="data-row"><span class="label">KELAS</span><span class="colon">:</span><span class="value">{{ $student->class->name ?? '-' }}</span></div>
+                        <div class="data-row"><span class="label">KELAS</span><span class="colon">:</span><span class="value">{{ $student->class->code ?? '-' }}</span></div>
                         <div class="data-row"><span class="label">BERLAKU</span><span class="colon">:</span><span class="value" style="color: #4f46e5;">SELAMA JADI SISWA</span></div>
                     </div>
                     <div class="photo-qr-section">

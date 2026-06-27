@@ -53,7 +53,7 @@
                         </div>
                     @endif
                     
-                    <form action="{{ route('parents.update', $parent->nik) }}" method="POST" id="parentForm" class="space-y-6">
+                    <form action="{{ route('parents.update', $parent->id) }}" method="POST" id="parentForm" class="space-y-6">
                         @csrf
                         @method('PUT')
                         
@@ -153,13 +153,13 @@
                                 <select name="student_nisns[]" id="student_nisns" class="w-full" multiple="multiple" required>
                                     @foreach($students as $student)
                                         @php
-                                            $isSelected = in_array($student->nisn, old('student_nisns', $selectedStudentIds));
-                                            $isTakenByOther = in_array($student->nisn, $assignedStudentsIds ?? []);
+                                            $isSelected = in_array($student->nisn, old('student_nisns', $selectedStudentNisns));
+                                            $isTakenByOther = in_array($student->nisn, $assignedStudentsNisns ?? []);
                                         @endphp
                                         <option value="{{ $student->nisn }}" 
                                                 {{ $isSelected ? 'selected' : '' }}
                                                 {{ $isTakenByOther ? 'disabled' : '' }}>
-                                            {{ $student->name }} ({{ $student->class->name ?? 'No Class' }})
+                                            {{ $student->name }} ({{ $student->class->code ?? 'No Class' }})
                                             {{ $isTakenByOther ? '(Sudah punya akun ortu)' : '' }}
                                         </option>
                                     @endforeach

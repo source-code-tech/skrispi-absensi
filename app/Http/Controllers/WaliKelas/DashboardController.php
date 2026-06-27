@@ -31,6 +31,7 @@ class DashboardController extends Controller
         $warningStudents = collect();
         $dailyStats = []; 
         $pendingRequestsCount = 0; 
+        $totalIzinSakit = 0; // 💡 Inisialisasi awal
         
         $maxAlpha = 3;
         $maxSick = 5;
@@ -39,6 +40,7 @@ class DashboardController extends Controller
         // 💡 PERBAIKAN 1: Inisialisasi variabel grafik di sini
         $grafikTanggal = [];
         $grafikHadir = [];
+        $grafikTerlambat = []; // 💡 Inisialisasi awal
         $grafikIzinSakit = [];
         $grafikAlpha = [];
 
@@ -89,7 +91,7 @@ class DashboardController extends Controller
                             $warningStudents->push([
                                 'student_nisn' => $student->nisn,
                                 'name' => $student->name,
-                                'class_name' => $class->name,
+                                'class_name' => $class->code,
                                 'warning_status' => $warningType,
                                 'count' => $count->count,
                                 'max_limit' => $maxLimit

@@ -55,7 +55,7 @@
                         <div class="mt-6 flex flex-wrap gap-2">
                              @foreach($parentRecord->students as $student)
                                 <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/20 text-white text-sm font-medium backdrop-blur-sm border border-white/10">
-                                    <i class="fas fa-user-graduate mr-2 text-yellow-300"></i> {{ $student->name }} ({{ $student->class->name ?? 'N/A' }})
+                                    <i class="fas fa-user-graduate mr-2 text-yellow-300"></i> {{ $student->name }} ({{ $student->class->code ?? 'N/A' }})
                                 </span>
                             @endforeach
                         </div>
@@ -85,7 +85,7 @@
                             
                             <div class="flex-1 min-w-0">
                                 <p class="text-xs font-bold text-indigo-500 uppercase tracking-wide mb-1">
-                                    Wali Kelas {{ $student->class->name }}
+                                    Wali Kelas {{ $student->class->code }}
                                 </p>
                                 <h5 class="text-lg font-bold text-gray-900 truncate">
                                     {{ $student->class->homeroomTeacher->user->name }}
@@ -102,7 +102,7 @@
                                         if(substr($phone, 0, 1) == '0') {
                                             $phone = '62' . substr($phone, 1);
                                         }
-                                        $message = "Assalamu'alaikum, saya orang tua dari " . $student->name . " kelas " . $student->class->name . "...";
+                                        $message = "Assalamu'alaikum, saya orang tua dari " . $student->name . " kelas " . $student->class->code . "...";
                                     @endphp
                                     <a href="https://wa.me/{{ $phone }}?text={{ urlencode($message) }}" target="_blank" class="inline-flex items-center text-xs font-bold text-green-600 bg-green-50 px-3 py-1.5 rounded-lg hover:bg-green-100 transition">
                                         <i class="fab fa-whatsapp mr-2 text-lg"></i> Hubungi Guru
@@ -139,7 +139,7 @@
                                             {{ $announcement->created_at->diffForHumans() }}
                                         </span>
                                         @if($announcement->target_type == 'class')
-                                            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">Kls {{ $announcement->class->name ?? '' }}</span>
+                                            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">Kls {{ $announcement->class->code ?? '' }}</span>
                                         @endif
                                     </div>
                                     <h5 class="text-lg font-bold text-gray-900 mb-2">{{ $announcement->title }}</h5>
@@ -234,7 +234,7 @@
                             <tr class="hover:bg-gray-50/50 transition duration-150">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-bold text-gray-800">{{ $absence->student->name ?? 'N/A' }}</div>
-                                    <div class="text-xs text-gray-500">{{ $absence->student->class->name ?? 'N/A' }}</div>
+                                    <div class="text-xs text-gray-500">{{ $absence->student->class->code ?? 'N/A' }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-medium">
                                     {{ $absence->attendance_time->translatedFormat('d F Y') }}

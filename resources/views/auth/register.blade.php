@@ -109,6 +109,18 @@
                     @error('name') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
                 </div>
 
+                {{-- NIP / Username --}}
+                <div>
+                    <label for="username" class="block text-xs font-bold text-[var(--ink)] mb-2">NIP / Username (Kredensial Login)</label>
+                    <div class="input-line rounded-md flex items-center px-4 {{ $errors->has('username') ? 'has-error' : '' }}">
+                        <i class="fas fa-id-card text-[var(--muted)] text-sm mr-3"></i>
+                        <input id="username" name="username" type="text" autocomplete="username" required
+                            class="w-full bg-transparent py-3 text-sm text-[var(--ink)] placeholder-[var(--muted)]/60 focus:outline-none"
+                            placeholder="Khusus Wali Kelas, isi dengan NIP" value="{{ old('username') }}">
+                    </div>
+                    @error('username') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
+                </div>
+
                 {{-- Email --}}
                 <div>
                     <label for="email" class="block text-xs font-bold text-[var(--ink)] mb-2">Alamat Email</label>

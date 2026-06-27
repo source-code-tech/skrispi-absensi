@@ -168,8 +168,29 @@
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-600 flex items-center">
-                                <i class="fas fa-envelope w-4 text-gray-400 mr-2"></i> {{ $user->email }}
+                            <div class="flex flex-col space-y-1">
+                                @if($user->role === 'wali_kelas')
+                                    <div class="text-sm font-semibold text-gray-800 flex items-center" title="NIP (Identitas Utama)">
+                                        <i class="fas fa-id-card w-4 text-purple-500 mr-2"></i> {{ $user->username }}
+                                    </div>
+                                    <div class="text-xs text-gray-500 flex items-center" title="Email (Kontak Opsional)">
+                                        <i class="fas fa-envelope w-4 text-gray-400 mr-2"></i> {{ $user->email }}
+                                    </div>
+                                @elseif($user->role === 'orang_tua')
+                                    <div class="text-sm font-semibold text-gray-800 flex items-center" title="Email (Identitas Utama)">
+                                        <i class="fas fa-envelope w-4 text-purple-500 mr-2"></i> {{ $user->email }}
+                                    </div>
+                                    <div class="text-xs text-gray-500 flex items-center" title="Username / ID">
+                                        <i class="fas fa-id-card w-4 text-gray-400 mr-2"></i> {{ $user->username }}
+                                    </div>
+                                @else
+                                    <div class="text-sm font-semibold text-gray-800 flex items-center">
+                                        <i class="fas fa-envelope w-4 text-purple-500 mr-2"></i> {{ $user->email }}
+                                    </div>
+                                    <div class="text-xs text-gray-500 flex items-center">
+                                        <i class="fas fa-id-card w-4 text-gray-400 mr-2"></i> {{ $user->username }}
+                                    </div>
+                                @endif
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -219,7 +240,7 @@
 
                                 {{-- Delete --}}
                                 <button type="button" 
-                                        onclick="confirmDelete({{ $user->username }}, '{{ $user->name }}')"
+                                        onclick="confirmDelete('{{ $user->username }}', '{{ $user->name }}')"
                                         class="text-red-500 hover:text-white hover:bg-red-500 p-2 rounded-lg transition-all duration-200 border border-red-200 hover:border-red-500 group-hover:shadow-sm"
                                         title="Hapus Akun">
                                     <i class="fas fa-trash-alt"></i>

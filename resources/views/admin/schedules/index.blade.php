@@ -30,7 +30,7 @@
                         <i class="fas fa-arrow-right text-gray-300 group-hover:text-indigo-500 transition duration-300"></i>
                     </div>
                     <h3 class="text-2xl font-extrabold text-gray-800 group-hover:text-indigo-600 transition duration-300">
-                        {{ $class->name }}
+                        {{ $class->code }}
                     </h3>
                     <p class="text-sm text-gray-500 mt-2">
                         {{ $class->major ?? 'Umum' }}

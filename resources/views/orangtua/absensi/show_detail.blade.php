@@ -33,7 +33,7 @@
                     Riwayat Tanggal {{ $absence->attendance_time->format('d M Y') }}
                 </h3>
                 <p class="text-sm text-gray-500 mt-1">
-                    {{ $absence->student->name ?? '-' }} • Kelas {{ $absence->student->class->name ?? '-' }}
+                    {{ $absence->student->name ?? '-' }} • Kelas {{ $absence->student->class->code ?? '-' }}
                 </p>
             </div>
             @php
@@ -62,7 +62,7 @@
                 </div>
                 <div>
                     <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Kelas</p>
-                    <p class="text-sm font-bold text-gray-800">{{ $absence->student->class->name ?? '-' }}</p>
+                    <p class="text-sm font-bold text-gray-800">{{ $absence->student->class->code ?? '-' }}</p>
                 </div>
                 <div>
                     <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Status</p>

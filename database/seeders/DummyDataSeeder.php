@@ -50,12 +50,7 @@ class DummyDataSeeder extends Seeder
         $this->command->info('⏳ Membuat 6 Data Kelas SMP Spesifik...');
         
         $smpClassesData = [
-            ['code' => '7A', 'name' => '7A', 'grade' => 7, 'major' => 'UMUM'],
-            ['code' => '7B', 'name' => '7B', 'grade' => 7, 'major' => 'UMUM'],
-            ['code' => '8A', 'name' => '8A', 'grade' => 8, 'major' => 'UMUM'],
-            ['code' => '8B', 'name' => '8B', 'grade' => 8, 'major' => 'UMUM'],
-            ['code' => '9A', 'name' => '9A', 'grade' => 9, 'major' => 'UMUM'],
-            ['code' => '9B', 'name' => '9B', 'grade' => 9, 'major' => 'UMUM'],
+            ['code' => '7A', 'grade' => 7, 'major' => 'UMUM'],
         ];
 
         $classes = [];
@@ -97,7 +92,7 @@ class DummyDataSeeder extends Seeder
         // ==========================================================
         // 3. BUAT SISWA DUMMY
         // ==========================================================
-        $totalStudents = 150;
+        $totalStudents = 1;
         $this->command->info("⏳ Membuat $totalStudents Data Siswa Dummy...");
         $students = [];
         $uniqueNisns = [];
@@ -127,7 +122,7 @@ class DummyDataSeeder extends Seeder
         // ==========================================================
         // 4. BUAT ORANG TUA DUMMY & RELASI
         // ==========================================================
-        $numParents = 50; 
+        $numParents = 1; 
         $this->command->info("⏳ Membuat $numParents Akun Orang Tua Dummy...");
         $parentRecords = [];
         $now = Carbon::now();
@@ -144,7 +139,6 @@ class DummyDataSeeder extends Seeder
             ]);
 
             $parentRecords[] = ParentModel::create([
-                'nik' => $faker->unique()->numerify('################'),
                 'user_username' => $user->username,
                 'name' => $user->name,
                 'relation_status' => $faker->randomElement(['Ayah', 'Ibu']),

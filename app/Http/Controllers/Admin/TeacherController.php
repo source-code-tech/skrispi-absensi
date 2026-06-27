@@ -28,7 +28,7 @@ class TeacherController extends Controller
             // Guru tanpa kelas akan muncul lebih dulu atau terakhir, tergantung DBMS,
             // lalu diurutkan dari Kelas 7, 8, 9, dst.
             ->orderBy('classes.grade', 'asc') 
-            ->orderBy('classes.name', 'asc')
+            ->orderBy('classes.code', 'asc')
             ->orderBy('users.name', 'asc') // Urutan kedua untuk nama guru jika kelasnya sama
             ->select('users.*') // Sangat penting: Ambil kolom dari tabel users agar mendapatkan objek User yang benar
             ->with('homeroomTeacher.class')
@@ -51,7 +51,7 @@ class TeacherController extends Controller
         
         // Ambil Kelas yang BELUM memiliki wali kelas
         $availableClasses = ClassModel::whereNotIn('code', $assignedClassCodes)
-                                      ->orderBy('grade')->orderBy('name')
+                                      ->orderBy('grade')->orderBy('code')
                                       ->get();
 
         return view('admin.teachers.create', compact('availableClasses'));
@@ -63,6 +63,7 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'nip' => 'required|string|max:20|unique:users,username|unique:homeroom_teachers,nip',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:8',
@@ -74,9 +75,8 @@ class TeacherController extends Controller
             DB::beginTransaction();
 
             // 1. Buat Akun User (Wali Kelas)
-            $username = explode('@', $request->email)[0];
             $user = User::create([
-                'username' => $username,
+                'username' => $request->nip, // Username = NIP
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
@@ -86,7 +86,7 @@ class TeacherController extends Controller
             // 2. Hubungkan dengan Kelas jika class_code ada
             if ($request->class_code) {
                 HomeroomTeacher::create([
-                    'nip' => (string) rand(1000000000, 9999999999),
+                    'nip' => $request->nip,
                     'user_username' => $user->username,
                     'class_code' => $request->class_code,
                     'scan_token' => Str::random(32),
@@ -128,7 +128,7 @@ class TeacherController extends Controller
                                         ->toArray();
                                         
         // Ambil SEMUA kelas (untuk mengisi dropdown)
-        $availableClasses = ClassModel::orderBy('grade')->orderBy('name')->get();
+        $availableClasses = ClassModel::orderBy('grade')->orderBy('code')->get();
 
         return view('admin.teachers.edit', compact('teacher', 'availableClasses', 'currentClassCode', 'assignedClasses'));
     }
@@ -177,7 +177,7 @@ class TeacherController extends Controller
                     $homeroom->update($updatedData);
                 } else {
                     HomeroomTeacher::create([
-                        'nip' => (string) rand(1000000000, 9999999999),
+                        'nip' => $teacher->username,
                         'user_username' => $teacher->username, 
                         'class_code' => $request->class_code,
                         'scan_token' => Str::random(32), // OTOMATIS ISI TOKEN JIKA SEBELUMNYA BELUM ADA KELAS

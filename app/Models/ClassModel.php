@@ -19,7 +19,6 @@ class ClassModel extends Model
     // ✅ PERBAIKAN SEKARANG: Tambahkan major dan description ke fillable
    protected $fillable = [
                 'code',
-                'name', 
                 'grade', 
                 'major',
                 'description',

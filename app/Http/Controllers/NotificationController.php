@@ -82,7 +82,7 @@ class NotificationController extends Controller
                 foreach ($absences as $abs) {
                     $allNotifications->push([
                         'icon' => $this->getAbsenceIcon($abs->status),
-                        'title' => "<strong>{$abs->student->name}</strong> ({$myClass->name}) tercatat {$abs->status}",
+                        'title' => "<strong>{$abs->student->name}</strong> ({$myclass->code}) tercatat {$abs->status}",
                         'time' => $abs->created_at->diffForHumans(),
                         'raw_time' => $abs->created_at,
                         'url' => route('admin.dashboard')
@@ -137,7 +137,7 @@ class NotificationController extends Controller
             $absences = Absence::with(['student.class'])->latest()->take($limit)->get();
             foreach ($absences as $abs) {
                 // FIX: Logika ?? dikeluarkan dari kurung kurawal string agar tidak error
-                $namaKelasSiswa = $abs->student->class->name ?? '-';
+                $namaKelasSiswa = $abs->student->class->code ?? '-';
                 
                 $allNotifications->push([
                     'icon' => $this->getAbsenceIcon($abs->status),

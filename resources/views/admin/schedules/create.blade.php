@@ -57,7 +57,7 @@
                             @if($preselectedClass)
                                 <input type="hidden" name="class_code" value="{{ $preselectedClass->id }}">
                                 <div class="relative rounded-xl shadow-sm">
-                                    <input type="text" value="{{ $preselectedClass->grade }} {{ $preselectedClass->name }}" disabled
+                                    <input type="text" value="{{ $preselectedClass->grade }} {{ $preselectedclass->code }}" disabled
                                            class="bg-gray-100 block w-full pl-3 sm:text-sm border-gray-300 rounded-xl py-3 text-gray-500">
                                 </div>
                             @else
@@ -66,7 +66,7 @@
                                         <option value="">-- Pilih Kelas --</option>
                                         @foreach($classes as $class)
                                             <option value="{{ $class->code }}" {{ old('class_code') == $class->code ? 'selected' : '' }}>
-                                                {{ $class->grade }} {{ $class->name }}
+                                                {{ $class->grade }} {{ $class->code }}
                                             </option>
                                         @endforeach
                                     </select>

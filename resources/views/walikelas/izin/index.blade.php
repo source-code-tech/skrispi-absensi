@@ -83,7 +83,7 @@
                                 </div>
                                 <div>
                                     <span class="block text-sm font-bold text-gray-900">{{ $request->student->name ?? '-' }}</span>
-                                    <span class="block text-xs text-gray-500">{{ $request->student->class->name ?? 'N/A' }}</span>
+                                    <span class="block text-xs text-gray-500">{{ $request->student->class->code ?? 'N/A' }}</span>
                                 </div>
                             </div>
                         </td>

@@ -12,16 +12,11 @@ class ParentModel extends Model
     // Menetapkan nama tabel utama secara eksplisit
     protected $table = 'parents'; 
     
-    protected $primaryKey = 'nik';
-    public $incrementing = false;
-    protected $keyType = 'string';
-    
     protected $fillable = [
-        'nik',
-        'user_username', 
+        'user_username',
         'name',
-        'phone_number',
         'relation_status',
+        'phone_number',
     ];
 
     public function user()
@@ -37,7 +32,7 @@ class ParentModel extends Model
         return $this->belongsToMany(
             Student::class, 
             'parent_student',       // Nama tabel pivot yang BENAR di database
-            'parent_nik',            // Kunci asing Model ini di tabel pivot
+            'parent_id',            // Kunci asing Model ini di tabel pivot
             'student_nisn'            // Kunci asing Model Student di tabel pivot
         )->with('class');
     }

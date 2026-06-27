@@ -37,7 +37,7 @@ class ReportController extends Controller
         $query->join('students', 'absences.student_nisn', '=', 'students.nisn')
               ->join('classes', 'students.class_code', '=', 'classes.code')
               ->orderBy('classes.grade', 'asc') // Urutkan Tingkat (7, 8, 9)
-              ->orderBy('classes.name', 'asc')  // Urutkan Kelas (7A, 7B)
+              ->orderBy('classes.code', 'asc')  // Urutkan Kelas (7A, 7B)
               ->orderBy('students.name', 'asc') // Urutkan Nama Siswa di dalam Kelas
               ->orderBy('absences.attendance_time', 'asc') // Kemudian waktu absensi
               ->select('absences.*'); // Penting: Pilih kembali semua kolom dari tabel absences
@@ -55,7 +55,7 @@ class ReportController extends Controller
             $student = $records->first()->student;
             return [
                 'student'   => $student,
-                'kelas'     => $student->class->name ?? '-',
+                'kelas'     => $student->class->code ?? '-',
                 'hadir'     => $records->where('status', 'Hadir')->count(),
                 'terlambat' => $records->where('status', 'Terlambat')->count(),
                 'sakit'     => $records->where('status', 'Sakit')->count(),
@@ -76,7 +76,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $classes = ClassModel::orderBy('grade')->orderBy('name')->get(); 
+        $classes = ClassModel::orderBy('grade')->orderBy('code')->get(); 
         return view('admin.reports.index', compact('classes'));
     }
 
@@ -194,7 +194,7 @@ class ReportController extends Controller
         
         $pdf = Pdf::loadView('admin.reports.pdf_template', $data); 
         
-        $fileName = "Laporan_Absensi_" . ($class ? $class->name . "_" : "Semua_Kelas_") . $startDate->format('Ymd') . "-" . $endDate->format('Ymd') . ".pdf";
+        $fileName = "Laporan_Absensi_" . ($class ? $class->code . "_" : "Semua_Kelas_") . $startDate->format('Ymd') . "-" . $endDate->format('Ymd') . ".pdf";
         
         return $pdf->stream($fileName);
     }

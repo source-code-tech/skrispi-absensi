@@ -127,7 +127,7 @@ class ReportController extends Controller
 
     $pdf = Pdf::loadView('admin.reports.pdf_template', $data);
 
-    $fileName = "Laporan_Absensi_" . $class->name . ".pdf";
+    $fileName = "Laporan_Absensi_" . $class->code . ".pdf";
 
     return $pdf->stream($fileName);
 }

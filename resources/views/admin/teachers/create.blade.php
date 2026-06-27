@@ -64,7 +64,20 @@
                             $inputErrorClass = 'w-full px-4 py-3 rounded-xl border border-red-300 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition duration-200 bg-red-50';
                         @endphp
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+                            
+                            {{-- NIP --}}
+                            <div class="sm:col-span-2">
+                                <label for="nip" class="{{ $labelClass }}">NIP (Nomor Induk Pegawai) <span class="text-red-500">*</span></label>
+                                <input type="text" name="nip" id="nip" 
+                                        class="@error('nip') {{ $inputErrorClass }} @else {{ $inputClass }} @enderror" 
+                                        value="{{ old('nip') }}" 
+                                        placeholder="Contoh: 198010202005011001"
+                                        required autofocus>
+                                <p class="mt-1 text-xs text-gray-500 font-medium">Penting: NIP ini akan otomatis digunakan sebagai Username login Wali Kelas.</p>
+                                @error('nip') <p class="mt-2 text-sm text-red-600 font-medium"><i class="fas fa-exclamation-circle mr-1"></i> {{ $message }}</p> @enderror
+                            </div>
+
                             {{-- Nama Guru --}}
                             <div class="sm:col-span-2">
                                 <label for="name" class="{{ $labelClass }}">Nama Lengkap <span class="text-red-500">*</span></label>
@@ -106,7 +119,7 @@
                                     <option value="">-- Pilih Kelas (Kosongkan jika belum mengampu) --</option>
                                     @foreach($availableClasses as $class)
                                         <option value="{{ $class->code }}" {{ old('class_code') == $class->code ? 'selected' : '' }}>
-                                            {{ $class->name }} (Tingkat {{ $class->grade }})
+                                            {{ $class->code }} (Tingkat {{ $class->grade }})
                                         </option>
                                     @endforeach
                                 </select>

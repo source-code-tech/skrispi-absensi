@@ -7,7 +7,7 @@
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
     <div class="mb-2 sm:mb-0">
         <h1 class="text-2xl font-bold text-gray-800 flex items-center">
-            <i class="fas fa-user-graduate text-indigo-600 mr-2"></i> Data Siswa Kelas {{ $class->name ?? '' }}
+            <i class="fas fa-user-graduate text-indigo-600 mr-2"></i> Data Siswa Kelas {{ $class->code ?? '' }}
         </h1>
         <small class="text-sm text-gray-500 block mt-1">Kelola data siswa di kelas yang Anda ampu.</small>
     </div>

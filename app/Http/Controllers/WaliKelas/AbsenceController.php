@@ -261,7 +261,7 @@ class AbsenceController extends Controller
             return response()->json([
                 'success' => true, 
                 'message' => $student->name . ' berhasil PULANG pada pukul ' . $currentTime->format('H:i:s') . '.',
-                'student' => ['name' => $student->name, 'class' => $student->class->name ?? 'N/A'],
+                'student' => ['name' => $student->name, 'class' => $student->class->code ?? 'N/A'],
                 'type' => 'OUT'
             ]);
         } 
@@ -291,7 +291,7 @@ class AbsenceController extends Controller
         if ($student->class_code !== $class->code) {
             return response()->json([
                 'success' => false,
-                'message' => "❌ Akses Ditolak! Siswa bernama {$student->name} bukan anggota dari kelas {$class->name}.",
+                'message' => "❌ Akses Ditolak! Siswa bernama {$student->name} bukan anggota dari kelas {$class->code}.",
                 'type'    => 'WRONG_CLASS'
             ], 403); // Menggunakan 403 karena tidak memiliki hak akses (Forbidden)
         }
@@ -354,7 +354,7 @@ class AbsenceController extends Controller
         return response()->json([
              'success' => true, 
              'message' => $message,
-             'student' => ['name' => $student->name, 'class' => $student->class->name ?? 'N/A'],
+             'student' => ['name' => $student->name, 'class' => $student->class->code ?? 'N/A'],
              'type' => 'IN',
              'status' => $status
         ]);
@@ -451,7 +451,7 @@ class AbsenceController extends Controller
 
         $today = Carbon::today();
         $walikelasName = $user->name;
-        $class = $user->homeroomTeacher->class->name ?? 'N/A';
+        $class = $user->homeroomTeacher->class->code ?? 'N/A';
         
         // Counter yang jujur
         $sentCount = 0;

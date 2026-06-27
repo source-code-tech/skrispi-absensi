@@ -54,7 +54,7 @@
                 </div>
                 
                 <h4 class="text-xl font-bold text-gray-900">{{ $student->name }}</h4>
-                <p class="text-sm text-gray-500 font-medium mb-4">{{ $student->class->name ?? 'N/A' }}</p>
+                <p class="text-sm text-gray-500 font-medium mb-4">{{ $student->class->code ?? 'N/A' }}</p>
                 
                 <div class="space-y-3 border-t border-gray-100 pt-4 text-sm">
                     <div class="flex justify-between items-center">

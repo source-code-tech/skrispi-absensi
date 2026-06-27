@@ -153,7 +153,7 @@
                                 <select name="student_nisns[]" id="student_nisns" class="w-full" multiple="multiple" required>
                                     @foreach($students as $student)
                                         <option value="{{ $student->nisn }}" {{ (collect(old('student_nisns'))->contains($student->nisn)) ? 'selected' : '' }}>
-                                            {{ $student->name }} ({{ $student->class->name ?? 'No Class' }})
+                                            {{ $student->name }} ({{ $student->class->code ?? 'No Class' }})
                                         </option>
                                     @endforeach
                                 </select>

@@ -63,7 +63,7 @@
                                 <select name="target_class_code" class="w-full px-3 py-2.5 rounded-lg border-gray-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-100 text-sm font-semibold text-gray-700 bg-white">
                                     <option value="">-- Pilih Kelas --</option>
                                     @foreach($classes as $class)
-                                        <option value="{{ $class->code }}" {{ $announcement->target_class_code == $class->code ? 'selected' : '' }}>{{ $class->name }}</option>
+                                        <option value="{{ $class->code }}" {{ $announcement->target_class_code == $class->code ? 'selected' : '' }}>{{ $class->code }}</option>
                                     @endforeach
                                 </select>
                             </div>

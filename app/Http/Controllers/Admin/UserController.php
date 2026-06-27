@@ -34,13 +34,13 @@ class UserController extends Controller
         $query = User::query();
 
         if ($tab === 'all') {
-            $query->where('role', '!=', 'super_admin')->where('id', '!=', $authId);
+            $query->where('role', '!=', 'super_admin')->where('username', '!=', $authId);
         } elseif ($tab === 'pending') {
-            $query->where('role', '!=', 'super_admin')->where('id', '!=', $authId)->where('is_approved', false);
+            $query->where('role', '!=', 'super_admin')->where('username', '!=', $authId)->where('is_approved', false);
         } elseif ($tab === 'super_admin_list') {
             $query->where('role', 'super_admin');
         } else {
-             $query->where('role', '!=', 'super_admin')->where('id', '!=', $authId);
+             $query->where('role', '!=', 'super_admin')->where('username', '!=', $authId);
              $tab = 'all';
         }
         
@@ -76,6 +76,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'username' => 'required|string|max:50|unique:users,username',
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
@@ -86,6 +87,7 @@ class UserController extends Controller
         try {
             // 1. Buat Akun User
             $user = User::create([
+                'username' => $request->username,
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
@@ -98,7 +100,7 @@ class UserController extends Controller
             // 2. 💡 BUAT RECORD TAMBAHAN BERDASARKAN PERAN
             if ($user->role === 'orang_tua') {
                 $parent = ParentModel::create([
-                    'user_id' => $user->id,
+                    'user_username' => $user->username,
                     'name' => $request->name,
                     // FIX: Gunakan placeholder jika field wajib tapi form tidak menyediakan
                     'phone_number' => '0', 
@@ -113,13 +115,14 @@ class UserController extends Controller
             } elseif ($user->role === 'wali_kelas') {
                 // Buat record HomeroomTeacher dengan class_id = null
                 HomeroomTeacher::create([
-                    'user_id' => $user->id,
-                    'class_id' => null, // Harus NULLABLE di DB
+                    'nip' => $user->username,
+                    'user_username' => $user->username,
+                    'class_code' => null, // Harus NULLABLE di DB
                 ]);
                 
                 DB::commit();
                 // Redirect ke Edit Teacher (teachers.edit) untuk menautkan kelas
-                return redirect()->route('teachers.edit', $user->id)
+                return redirect()->route('teachers.edit', $user->username)
                                  ->with('success', 'Akun Wali Kelas berhasil dibuat. Sekarang tautkan guru ini ke kelas yang diampu.');
             }
 
@@ -151,13 +154,13 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)], 
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->username, 'username')], 
             'password' => 'nullable|string|min:8',
             'role' => ['required', Rule::in(['wali_kelas', 'orang_tua', 'super_admin'])],
             'is_approved' => 'required|boolean', 
         ]);
         
-        if ($user->role === 'super_admin' && $user->id !== Auth::id()) {
+        if ($user->role === 'super_admin' && $user->username !== Auth::user()->username) {
             return redirect()->route('admin.users.index')->with('error', 'Tidak diizinkan mengubah akun Super Admin.');
         }
         
@@ -187,19 +190,20 @@ class UserController extends Controller
                 // B. INISIASI DATA BARU (Buat relasi baru)
                 if ($newRole === 'wali_kelas') {
                     HomeroomTeacher::create([
-                        'user_id' => $user->id,
-                        'class_id' => null, 
+                        'nip' => $user->username,
+                        'user_username' => $user->username,
+                        'class_code' => null, 
                     ]);
                     DB::commit();
-                    return redirect()->route('teachers.edit', $user->id)
+                    return redirect()->route('teachers.edit', $user->username)
                                      ->with('success', 'Peran berhasil diubah ke Wali Kelas. Silakan tautkan kelas.');
                                      
                 } elseif ($newRole === 'orang_tua') {
                     $parent = ParentModel::create([
-                        'user_id' => $user->id,
+                        'user_username' => $user->username,
                         'name' => $user->name, 
-                        'phone_number' => $request->phone_number ?? '0', // Placeholder
-                        'relation_status' => $request->relation_status ?? 'Wali',
+                        'phone_number' => '0', 
+                        'relation_status' => 'Wali',
                     ]);
                     DB::commit();
                     return redirect()->route('parents.edit', $parent->id)
@@ -277,15 +281,15 @@ class UserController extends Controller
         $request->validate(['selected_users' => 'required|array']);
         $authId = Auth::id();
 
-        $validUserIds = User::whereIn('id', $userIds)
-            ->where('role', '!=', 'super_admin')->where('id', '!=', $authId)->pluck('id');
+        $validUserIds = User::whereIn('username', $userIds)
+            ->where('role', '!=', 'super_admin')->where('username', '!=', $authId)->pluck('username');
             
         if ($validUserIds->isEmpty()) {
             return redirect()->back()->with('error', 'Tidak ada akun yang dapat dihapus. Pastikan Anda memilih Non-Admin.');
         }
         
         $count = 0;
-        $usersToDelete = User::whereIn('id', $validUserIds)->get();
+        $usersToDelete = User::whereIn('username', $validUserIds)->get();
         
         // Hapus relasi dan akun satu per satu untuk memastikan detach M:M berjalan
         foreach ($usersToDelete as $user) {
@@ -317,8 +321,8 @@ class UserController extends Controller
         $request->validate(['selected_users' => 'required|array']);
         $totalSelected = count($userIds);
 
-        $countUpdated = User::whereIn('id', $userIds)
-            ->where('role', '!=', 'super_admin')->where('id', '!=', Auth::id())->where('is_approved', false)
+        $countUpdated = User::whereIn('username', $userIds)
+            ->where('role', '!=', 'super_admin')->where('username', '!=', Auth::id())->where('is_approved', false)
             ->update(['is_approved' => true]); 
 
         $alreadyApproved = $totalSelected - $countUpdated;
@@ -339,13 +343,13 @@ class UserController extends Controller
         $request->validate(['selected_users' => 'required|array']);
         $authId = Auth::id();
 
-        $validUserIds = User::whereIn('id', $userIds)
-            ->where('role', '!=', 'super_admin')->where('id', '!=', $authId)->pluck('id');
+        $validUserIds = User::whereIn('username', $userIds)
+            ->where('role', '!=', 'super_admin')->where('username', '!=', $authId)->pluck('username');
 
         if ($validUserIds->isEmpty()) {
             return redirect()->back()->with('error', 'Tidak ada akun yang valid untuk diubah statusnya.');
         }
-        $usersToToggle = User::whereIn('id', $validUserIds)->get();
+        $usersToToggle = User::whereIn('username', $validUserIds)->get();
         $activatedCount = 0;
         $deactivatedCount = 0;
 

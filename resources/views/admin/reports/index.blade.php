@@ -54,7 +54,7 @@
                                         <option value="">-- Semua Kelas --</option>
                                         @foreach($classes as $class)
                                             <option value="{{ $class->code }}" {{ old('class_code') == $class->code ? 'selected' : '' }}>
-                                                {{ $class->name }} (Tingkat {{ $class->grade }})
+                                                {{ $class->code }} (Tingkat {{ $class->grade }})
                                             </option>
                                         @endforeach
                                     </select>

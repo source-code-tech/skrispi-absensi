@@ -10,7 +10,7 @@
         <div>
             <h2 class="text-2xl font-bold text-gray-800 tracking-tight">Rekap Absensi Bulanan</h2>
             <p class="text-sm text-gray-500 mt-1">
-                Kelas: <span class="font-bold text-indigo-600">{{ $class->name }}</span> 
+                Kelas: <span class="font-bold text-indigo-600">{{ $class->code }}</span> 
                 • Periode: <span class="font-bold text-gray-800">{{ $currentMonth }}</span>
             </p>
         </div>

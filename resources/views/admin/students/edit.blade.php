@@ -85,7 +85,7 @@
                                     <option value="">-- Pilih Kelas --</option>
                                     @foreach($classes as $class)
                                         <option value="{{ $class->code }}" {{ old('class_code', $student->class_code) == $class->code ? 'selected' : '' }}>
-                                            {{ $class->name }} {{ isset($class->grade) ? '- Tingkat '.$class->grade : '' }}
+                                            {{ $class->code }} {{ isset($class->grade) ? '- Tingkat '.$class->grade : '' }}
                                         </option>
                                     @endforeach
                                 </select>

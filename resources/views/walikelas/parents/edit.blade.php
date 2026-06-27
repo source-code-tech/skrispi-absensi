@@ -93,7 +93,7 @@
                 <p class="text-gray-600">Perubahan pada data ini hanya memengaruhi kontak Orang Tua, bukan akun pengguna (jika ada). Pastikan nomor HP benar untuk kelancaran notifikasi absensi.</p>
                 <ul class="list-disc ml-5 mt-4 space-y-1 text-gray-600">
                     @foreach($parent->students as $student)
-                        <li>Terhubung dengan siswa: <strong class="text-gray-800">{{ $student->name }}</strong> ({{ $student->class->name ?? 'N/A' }})</li>
+                        <li>Terhubung dengan siswa: <strong class="text-gray-800">{{ $student->name }}</strong> ({{ $student->class->code ?? 'N/A' }})</li>
                     @endforeach
                 </ul>
             </div>

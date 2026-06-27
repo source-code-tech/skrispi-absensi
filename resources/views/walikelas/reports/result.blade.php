@@ -1,6 +1,6 @@
 @extends('layouts.adminlte')
 
-@section('title', 'Laporan Absensi: ' . $class->name)
+@section('title', 'Laporan Absensi: ' . $class->code)
 
 @section('content')
 <div class="space-y-6">
@@ -28,7 +28,7 @@
         <div class="p-6 border-b border-gray-100 bg-gray-50/50 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
             <h3 class="font-bold text-gray-800 flex items-center">
                 <span class="w-2 h-6 bg-indigo-500 rounded-full mr-3"></span>
-                Data Absensi Kelas {{ $class->name }}
+                Data Absensi Kelas {{ $class->code }}
             </h3>
             
             <div class="flex space-x-3">

@@ -162,7 +162,7 @@
             <td style="width:50%;">
                 <div class="info-card">
                     <div class="lbl">Kelas</div>
-                    <div class="val">{{ $class ? $class->name : 'Semua Kelas' }}</div>
+                    <div class="val">{{ $class ? $class->code : 'Semua Kelas' }}</div>
                 </div>
             </td>
         </tr>
@@ -238,7 +238,7 @@
                 <td>{{ $absence->attendance_time->format('H:i') }}</td>
                 <td>{{ $absence->student->nisn ?? '-' }}</td>
                 <td>{{ $absence->student->name ?? '-' }}</td>
-                <td>{{ $absence->student->class->name ?? '-' }}</td>
+                <td>{{ $absence->student->class->code ?? '-' }}</td>
                 <td><span class="pill {{ $pillClass }}">{{ $status }}</span></td>
                 <td>
                     {{ ($status === 'Terlambat' && $absence->late_duration) ? $absence->late_duration . ' menit' : '-' }}

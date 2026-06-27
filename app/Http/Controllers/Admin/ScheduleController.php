@@ -15,7 +15,7 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        $classes = ClassModel::orderBy('grade')->orderBy('name')->get();
+        $classes = ClassModel::orderBy('grade')->orderBy('code')->get();
         return view('admin.schedules.index', compact('classes'));
     }
 
@@ -54,7 +54,7 @@ class ScheduleController extends Controller
             $preselectedClass = ClassModel::find($class_code);
         }
         
-        $classes = ClassModel::orderBy('grade')->orderBy('name')->get();
+        $classes = ClassModel::orderBy('grade')->orderBy('code')->get();
         $subjects = Subject::orderBy('name')->get();
         $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
 
@@ -91,7 +91,7 @@ class ScheduleController extends Controller
      */
     public function edit(Schedule $schedule)
     {
-        $classes = ClassModel::orderBy('grade')->orderBy('name')->get();
+        $classes = ClassModel::orderBy('grade')->orderBy('code')->get();
         $subjects = Subject::orderBy('name')->get();
         $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
 

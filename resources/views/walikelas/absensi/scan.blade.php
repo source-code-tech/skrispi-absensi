@@ -9,7 +9,7 @@
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0">
         <div>
             <h2 class="text-lg sm:text-2xl font-bold text-gray-800 tracking-tight">Scan Absensi Harian</h2>
-            <p class="text-xs sm:text-sm text-gray-500 mt-0.5 sm:mt-1">Kelas: <span class="font-bold text-indigo-600">{{ $class->name ?? 'N/A' }}</span></p>
+            <p class="text-xs sm:text-sm text-gray-500 mt-0.5 sm:mt-1">Kelas: <span class="font-bold text-indigo-600">{{ $class->code ?? 'N/A' }}</span></p>
         </div>
         <nav class="flex text-xs sm:text-sm font-medium text-gray-500 space-x-2" aria-label="Breadcrumb">
             <a href="{{ route('walikelas.dashboard') }}" class="text-indigo-600 hover:text-indigo-800 transition">Dashboard</a>

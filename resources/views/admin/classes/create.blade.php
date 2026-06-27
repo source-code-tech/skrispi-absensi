@@ -67,24 +67,24 @@
                             </div>
                         @endif
 
-                        {{-- 1. Nama Kelas --}}
+                        {{-- 1. Kode Kelas --}}
                         <div class="mb-5">
-                            <label for="name" class="block text-sm font-semibold text-gray-700 mb-1">
-                                Nama Kelas <span class="text-red-600">*</span>
+                            <label for="code" class="block text-sm font-semibold text-gray-700 mb-1">
+                                Kode Kelas <span class="text-red-600">*</span>
                             </label>
-                            @php $nameStatusClass = $errors->has('name') ? $errorClass : $normalClass; @endphp
+                            @php $codeStatusClass = $errors->has('code') ? $errorClass : $normalClass; @endphp
                             <input type="text"
-                                name="name"
-                                id="name"
-                                class="{{ $baseInputClass }} border {{ $nameStatusClass }}"
-                                value="{{ old('name') }}"
-                                placeholder="Contoh: 1A, 2B, 6C"
+                                name="code"
+                                id="code"
+                                class="{{ $baseInputClass }} border {{ $codeStatusClass }}"
+                                value="{{ old('code') }}"
+                                placeholder="Contoh: X-RPL-1, 7A, dll"
                                 required
                                 autofocus>
-                            @error('name')
+                            @error('code')
                                 <p class="mt-2 text-sm text-red-600 flex items-center"><i class="fas fa-exclamation-circle mr-1"></i> {{ $message }}</p>
                             @enderror
-                            <small class="mt-1 text-xs text-gray-500 block">Nama Kelas harus unik. </small>
+                            <small class="mt-1 text-xs text-gray-500 block">Kode Kelas harus unik dan digunakan sebagai identitas utama.</small>
                         </div>
 
                         {{-- 2. Tingkat & Jurusan --}}

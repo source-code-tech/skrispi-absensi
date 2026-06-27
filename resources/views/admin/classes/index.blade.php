@@ -68,7 +68,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex justify-center items-center">
                                     <div class="h-10 w-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm">
-                                        {{ substr($class->name, 0, 2) }}
+                                        {{ substr($class->code, 0, 2) }}
                                     </div>
                                    
                                 </div>
@@ -114,7 +114,7 @@
                                     <button type="button" 
                                             class="p-2 rounded-lg text-red-500 hover:bg-red-50 transition" 
                                             title="Hapus"
-                                            onclick="confirmDelete({{ $class->code }}, '{{ $class->name }}')">
+                                            onclick="confirmDelete({{ $class->code }}, '{{ $class->code }}')">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </div>

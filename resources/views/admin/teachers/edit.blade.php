@@ -67,7 +67,16 @@
                             $inputErrorClass = 'w-full px-4 py-3 rounded-xl border border-red-300 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition duration-200 bg-red-50';
                         @endphp
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+                            {{-- NIP (Readonly) --}}
+                            <div class="sm:col-span-2">
+                                <label for="nip" class="{{ $labelClass }}">NIP (Nomor Induk Pegawai) - <span class="text-xs text-gray-500">Tidak dapat diubah</span></label>
+                                <input type="text" name="nip" id="nip" 
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-500 cursor-not-allowed" 
+                                        value="{{ $teacher->username }}" 
+                                        readonly>
+                            </div>
+
                             {{-- Nama Guru --}}
                             <div class="sm:col-span-2">
                                 <label for="name" class="{{ $labelClass }}">Nama Lengkap <span class="text-red-500">*</span></label>
@@ -118,7 +127,7 @@
                                         <option value="{{ $class->code }}" 
                                                 {{ $isSelected ? 'selected' : '' }}
                                                 {{ $isDisabled ? 'disabled' : '' }}>
-                                            {{ $class->name }} (Tingkat {{ $class->grade }})
+                                            {{ $class->code }} (Tingkat {{ $class->grade }})
                                             @if ($isCurrent) (Kelas Saat Ini) @endif
                                             @if ($isDisabled) (Sudah Diampu Guru Lain) @endif
                                         </option>
@@ -170,7 +179,7 @@
                         <h6 class="font-bold text-gray-800 mb-2">Kelas Saat Ini:</h6>
                         @if($teacher->homeroomTeacher && $teacher->homeroomTeacher->class)
                             <div class="bg-indigo-50 border border-indigo-100 rounded-lg p-3 text-center">
-                                <span class="text-lg font-bold text-indigo-700 block">{{ $teacher->homeroomTeacher->class->name }}</span>
+                                <span class="text-lg font-bold text-indigo-700 block">{{ $teacher->homeroomTeacher->class->code }}</span>
                                 <span class="text-xs text-indigo-500">(Tingkat {{ $teacher->homeroomTeacher->class->grade }})</span>
                             </div>
                             <p class="text-xs mt-3 text-gray-500">Kelas ini akan di-update jika Anda memilih kelas baru di form utama.</p>

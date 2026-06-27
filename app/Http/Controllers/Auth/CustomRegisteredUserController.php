@@ -31,12 +31,14 @@ class CustomRegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'username' => ['required', 'string', 'max:50', 'unique:'.User::class.',username'], // NIP atau Username
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class.',email'],
             'role' => ['required', 'string', Rule::in(['siswa', 'wali_kelas', 'orang_tua'])], 
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
+            'username' => $request->username,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -47,14 +49,15 @@ class CustomRegisteredUserController extends Controller
         // ✅ AUTO-CREATE PROFILE: Membuat data profil kosong agar user muncul di menu Admin
         if ($user->role === 'wali_kelas') {
             \App\Models\HomeroomTeacher::create([
-                'user_id' => $user->id,
-                // 'class_id' biarkan null dulu, admin yang set
+                'nip' => $user->username,
+                'user_username' => $user->username,
+                'class_code' => null, // admin yang set
+                'scan_token' => \Illuminate\Support\Str::random(32),
             ]);
         } elseif ($user->role === 'orang_tua') {
             \App\Models\ParentModel::create([
-                'user_id' => $user->id,
-                'name' => $user->name, // Gunakan nama yang sama dengan user
-                // 'phone_number' & 'relation_status' bisa diupdate user nanti
+                'user_username' => $user->username,
+                'name' => $user->name, 
             ]);
         }
 

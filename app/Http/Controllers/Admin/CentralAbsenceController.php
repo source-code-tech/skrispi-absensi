@@ -114,7 +114,7 @@ class CentralAbsenceController extends Controller
             return response()->json([
                 'success' => true, 
                 'message' => $message,
-                'student' => ['name' => $student->name, 'class' => $student->class->name ?? 'N/A'], 
+                'student' => ['name' => $student->name, 'class' => $student->class->code ?? 'N/A'], 
                 'type' => 'OUT'
             ]);
 
@@ -175,7 +175,7 @@ class CentralAbsenceController extends Controller
             return response()->json([
                 'success' => true, 
                 'message' => $message,
-                'student' => ['name' => $student->name, 'class' => $student->class->name ?? 'N/A'], 
+                'student' => ['name' => $student->name, 'class' => $student->class->code ?? 'N/A'], 
                 'type' => 'IN',
                 'status' => $status
             ]);

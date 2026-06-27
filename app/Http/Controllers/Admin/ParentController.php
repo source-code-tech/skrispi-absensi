@@ -29,8 +29,8 @@ class ParentController extends Controller
                                            $q->where('name', 'like', "%{$search}%");
                                        });
                              })
-                             // 💡 PERUBAHAN: Urutkan berdasarkan NIK (DESC)
-                             ->orderBy('nik', 'desc')
+                             // 💡 PERUBAHAN: Urutkan berdasarkan ID (DESC)
+                             ->orderBy('id', 'desc')
                              ->paginate(15);
                                
         return view('admin.parents.index', compact('parents'));
@@ -76,7 +76,6 @@ class ParentController extends Controller
             ]);
 
             $parent = ParentModel::create([
-                'nik' => (string) rand(1000000000000000, 9999999999999999),
                 'user_username' => $user->username,
                 'name' => $request->name,
                 'phone_number' => $request->phone_number,
@@ -105,7 +104,7 @@ class ParentController extends Controller
     {
         // 1. Ambil NISN siswa yang sudah terhubung dengan *akun orang tua lain*
         $assignedStudentsNisns = DB::table('parent_student')
-                                 ->where('parent_nik', '!=', $parent->nik) 
+                                 ->where('parent_id', '!=', $parent->id) 
                                  ->pluck('student_nisn')
                                  ->toArray();
         
@@ -127,7 +126,7 @@ class ParentController extends Controller
             'name' => 'required|max:255',
             'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($parent->user_username, 'username')],
             'password' => 'nullable|min:8',
-            'phone_number' => ['required', Rule::unique('parents', 'phone_number')->ignore($parent->nik, 'nik')],
+            'phone_number' => ['required', Rule::unique('parents', 'phone_number')->ignore($parent->id)],
             'relation_status' => 'nullable|max:50',
             'student_nisns' => 'required|array|min:1',
             'student_nisns.*' => 'exists:students,nisn',
@@ -135,7 +134,7 @@ class ParentController extends Controller
 
         // Opsional: Validasi kustom untuk penautan siswa ke orang tua lain
         $isStudentAssignedToOther = DB::table('parent_student')
-                                       ->where('parent_nik', '!=', $parent->nik)
+                                       ->where('parent_id', '!=', $parent->id)
                                        ->whereIn('student_nisn', $request->student_nisns)
                                        ->exists();
 

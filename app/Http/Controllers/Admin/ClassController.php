@@ -21,7 +21,7 @@ class ClassController extends Controller
         //             kemudian diurutkan berdasarkan 'name' (nama kelas) secara ascending.
         $classes = ClassModel::withCount('students')
                              ->orderBy('grade', 'asc') // Urutan utama: 1, 2, ..., 12
-                             ->orderBy('name', 'asc')  // Urutan sekunder: 7A, 7B, 7C
+                             ->orderBy('code', 'asc')  // Urutan sekunder: 7A, 7B, 7C
                              ->paginate(15);
         
         return view('admin.classes.index', compact('classes'));
@@ -48,8 +48,7 @@ class ClassController extends Controller
         
         $request->validate([
             'code' => 'required|string|max:20|unique:classes,code',
-            'name' => 'required|string|max:255|unique:classes,name', 
-            'grade' => 'required|integer|min:1|max:6',
+            'grade' => 'required|integer|min:1|max:12',
             'major' => 'nullable|string|max:100',
             'description' => 'nullable|string|max:500',
             'dismissal_time' => 'required|date_format:H:i|after:' . $globalStartTime,
@@ -60,9 +59,6 @@ class ClassController extends Controller
         ]);
 
         $data = $request->all();
-        if (empty($data['code'])) {
-            $data['code'] = \Illuminate\Support\Str::slug($request->name);
-        }
         ClassModel::create($data);
 
         return redirect()->route('classes.index')->with('success', 'Kelas baru berhasil ditambahkan!');
@@ -89,7 +85,6 @@ class ClassController extends Controller
 
         $request->validate([
             'code' => 'required|string|max:20|unique:classes,code,' . $class->code . ',code',
-            'name' => 'required|string|max:255|unique:classes,name,' . $class->code . ',code', 
             'grade' => 'required|integer|min:1|max:12', 
             'major' => 'nullable|string|max:100',
             'description' => 'nullable|string|max:500',
@@ -127,7 +122,7 @@ class ClassController extends Controller
         }
 
         // Jika tidak ada relasi, hapus
-        $className = $class->name;
+        $className = $class->code;
         $class->delete();
 
         return redirect()->route('classes.index')->with('success', "Kelas {$className} berhasil dihapus.");

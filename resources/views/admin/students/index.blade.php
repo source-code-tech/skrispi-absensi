@@ -74,7 +74,7 @@
                             <option value="">Semua Kelas</option>
                             @foreach($classes as $class)
                                 <option value="{{ $class->code }}" {{ request('class_code') == $class->code ? 'selected' : '' }}>
-                                    {{ $class->name }}
+                                    {{ $class->code }}
                                 </option>
                             @endforeach
                         </select>
@@ -191,7 +191,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
                                     <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">
-                                        {{ $student->class ? $student->class->name : 'Tanpa Kelas' }}
+                                        {{ $student->class ? $student->class->code : 'Tanpa Kelas' }}
                                     </span>
                                 </div>
                             </td>

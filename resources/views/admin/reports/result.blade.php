@@ -31,7 +31,7 @@
                  <h3 class="text-lg font-bold text-gray-800">
                     Laporan Absensi 
                     @if($class)
-                        Kelas <span class="text-purple-600">{{ $class->name }}</span>
+                        Kelas <span class="text-purple-600">{{ $class->code }}</span>
                     @else
                         <span class="text-purple-600">Semua Kelas</span>
                     @endif
@@ -106,7 +106,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-800">
-                                        {{ $absence->student->class->name ?? 'N/A' }}
+                                        {{ $absence->student->class->code ?? 'N/A' }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
